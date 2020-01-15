@@ -1,4 +1,4 @@
-#PubSubLite 
+# PubSubLite ![Go Report Card](https://goreportcard.com/badge/github.com/mdanzinger/pubsublite) 
 PubSubLite is a simple in-memory implementation of PubSub with an HTTP API server. This is **NOT** production ready as 
 it has some glaring issues.
 
