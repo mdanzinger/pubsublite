@@ -6,6 +6,8 @@ import (
 	"log"
 )
 
+// Handlefunc is used to handle the message. This can be used to deliver to a websocket connection, or passed along
+// to some sqs client, etc
 type Handlefunc func(ctx context.Context, msg *Message) error
 
 // Subscriber represents a pubsub subscriber
@@ -30,7 +32,7 @@ func (s *Subscriber) Listen() chan struct{} {
 	go func() {
 		for msg := range s.ch {
 			if err := s.handler(context.Background(), msg); err != nil {
-				s.l.Printf("subscriber %s recieved error handling message: %s", s.id, err)
+				s.l.Printf("subscriber %s received error handling message: %s", s.id, err)
 				s.l.Printf("removing subscriber %s from topic %s", s.id, s.topic)
 				signal <- struct{}{}
 			}
@@ -43,6 +45,7 @@ func (s *Subscriber) Listen() chan struct{} {
 // SubscriberOption is used to add functional params to the NewSubscriber constructor
 type SubscriberOption func(*Subscriber)
 
+// NewSubscriber initializes a new subscriber ready to subscribe to a topic
 func NewSubscriber(topic string, handler Handlefunc, opts ...SubscriberOption) *Subscriber {
 	s := &Subscriber{
 		id:      uuid.Must(uuid.NewV4()).String(),

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/mdanzinger/pubsublite/pkg/api"
 	"github.com/mdanzinger/pubsublite/pkg/pubsub"
+	"github.com/urfave/negroni"
 	"log"
 	"net/http"
 	"os"
@@ -23,6 +24,10 @@ func main() {
 	b := pubsub.NewBroker(l)
 	h := api.NewHandler(b, l)
 
+	// use negroni for logs, panic recovering, etc
+	n := negroni.Classic()
+	n.UseHandler(h)
+
 	l.Printf("server listening on port :%s", *port)
-	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *port), h))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", *port), n))
 }

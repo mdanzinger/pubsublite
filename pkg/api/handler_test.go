@@ -51,7 +51,7 @@ func TestHandle(t *testing.T) {
 	// Ensure subscriber received message
 	_, d, err := conn.Read(context.Background())
 	if err != nil {
-		t.Errorf("conn.Read recieved unexpected error : %s", err)
+		t.Errorf("conn.Read received unexpected error : %s", err)
 	}
 
 	if string(d) != testMessage {

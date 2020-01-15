@@ -27,7 +27,7 @@ func TestBroker_Subscribe(t *testing.T) {
 		},
 	}
 
-	for i, _ := range subscribers {
+	for i := range subscribers {
 		if err := b.Subscribe(context.Background(), subscribers[i]); err != nil {
 			t.Errorf("unexpected error subscribing to broker : %s", err)
 		}
@@ -69,7 +69,7 @@ func TestBroker_Broadcast(t *testing.T) {
 		l:      log.New(ioutil.Discard, "", 0),
 	}
 	if err := b.Broadcast(context.Background(), []byte(testData), testTopic); err != nil {
-		t.Errorf("Broadcast() recieved unexpected error: %s", err)
+		t.Errorf("Broadcast() received unexpected error: %s", err)
 	}
 
 	// Wait for messages to get handled
@@ -89,7 +89,7 @@ func TestBroker_Unsubscribe(t *testing.T) {
 	}
 
 	if err := b.Unsubscribe(context.Background(), subscribers[0]); err != nil {
-		t.Errorf("Unsubscribe() recieved unexpected error: %s", err)
+		t.Errorf("Unsubscribe() received unexpected error: %s", err)
 	}
 
 	if subs := b.topics[testTopic]; len(subs) != 1 {

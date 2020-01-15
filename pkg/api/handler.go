@@ -4,13 +4,13 @@ import (
 	"context"
 	"github.com/gorilla/mux"
 	"github.com/mdanzinger/pubsublite/pkg/pubsub"
-	"github.com/urfave/negroni"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"nhooyr.io/websocket"
 )
 
+// Handler is an HTTP handler ready to be used in a http.Server
 type Handler struct {
 	r      *mux.Router
 	broker *pubsub.Broker
@@ -88,8 +88,5 @@ func NewHandler(broker *pubsub.Broker, logger *log.Logger) http.Handler {
 	}
 	h.routes()
 
-	n := negroni.Classic()
-	n.UseHandler(h.r)
-
-	return n
+	return h.r
 }
