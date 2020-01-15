@@ -5,7 +5,7 @@ it has some glaring issues.
 ---
 
 ### Installation
-`git clone github.com/mdanzinger/pubsublite`
+`git clone https://github.com/mdanzinger/pubsublite`
 
 ### Usage
 Simply run ```go run main.go -port=<PORT>``` from within the `cmd/pubsublite` directory.
